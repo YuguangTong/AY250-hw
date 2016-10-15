@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+<a href="{{ url_for('index') }}">back to main page</a>
+{% for message in get_flashed_messages() %}
+<div class="flash">{{ message }}</div>
+{% endfor %}
+<p> A database is present. Please insert a new collection by uploading a BibTex file:</p>
+<form action="{{ url_for('insert_collection') }}" method="post" enctype="multipart/form-data" class="add-entry">
+<dl>
+    <dt>Collection Name:
+    <dd> <input type="text" name="collection_name">
+    </dl>
+<input type="file" name="file"><br/>
+<input type="submit", value="Upload">
+</form>
+{% endblock %}

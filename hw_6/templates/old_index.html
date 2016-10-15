@@ -1,0 +1,20 @@
+
+
+<!doctype html>
+<title>bibtex_db</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<div class="page">
+  <h1>BibTex Database (BTDB)</h1>
+    <div class="metanav">
+        <a href="{{ url_for('insert_collection') }}">insert a collection in</a>
+        <a href="{{ url_for('run_query') }}">query</a>
+    </div>
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% if db_exist %}
+        {% for tn in tablenames %}
+            <li> {{ tn['name'] }} </li>
+        {% endfor %}
+    {% endif %}
+</div>

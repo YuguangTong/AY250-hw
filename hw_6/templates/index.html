@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="metanav">
+        <a href="{{ url_for('insert_collection') }}">insert collection</a>
+        <a href="{{ url_for('run_query') }}"> make query</a>
+    </div>
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% if db_exist %}
+	<table>
+	  <tr><th>Collection name</th><th>Number of entries</th></tr>
+        {% for tn in tablenames %}
+            <tr> <td>{{ tn }}</td> <td> {{ entrynum[loop.index0] }} </td> </tr>
+        {% endfor %}
+	</table>
+    {% endif %}
+{% endblock %}

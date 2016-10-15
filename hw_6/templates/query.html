@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+<a href="{{ url_for('index') }}">back to main page</a> <br/>
+<p> <b> A database is present. You can query it with the form below.</b> </p><br/>
+<li> Use SQL query syntax to enter the query string that follows "WHERE".</li>
+<li> Column names are one of ("ref_tag", "author_list", "journal", "volume"(integer), "pages", "years" (integer), "title", and "collection" </li>
+<li> To use wildcards, use "LIKE" and employ the "%" (percent symbol) as multiple-character wildcard, and "_" (underscore) as single-character wildcard. </li>
+<li> Make sure to explicitly put strings in quotes </li>
+<form action="{{ url_for('run_query') }}" method="post">
+<dl>
+    <dt> <b>Query string</b>:
+    <dd> <input type="text" name="partial_query">
+    </dl>
+<input type="submit", value="submit">
+</form>
+{% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+{% endfor %}
+{% if found_entry %}
+<table>
+<tr><th>ref tag</th><th>title</th><th>authors</th><th>year</th>
+    <th>journal</th><th>collection</th><th>vol</th><th>pages</th></tr>
+{% for entry in sql_entries %}
+<tr> <td>{{ entry['ref_tag'] }}</td><td> {{ entry['title'] }} </td>
+    <td> {{ entry['author_list'] }} </td><td> {{ entry['year'] }} </td>
+    <td> {{ entry['journal'] }}
+    <td> {{ entry['collection'] }} </td><td> {{ entry['volume'] }} </td>
+    <td> {{ entry['pages'] }} </td></tr>
+{% endfor %}
+</table>
+{% endif %}
+{% endblock %}
